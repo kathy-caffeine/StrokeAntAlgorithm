@@ -7,24 +7,18 @@ public class Traveller
 {
     public Params Params { get; set; }
     public double FinalResult { get; set; }
-    private Ant GlobalBestAnt { get; set; }
+    public Ant GlobalBestAnt { get; set; }
     public List<Edge> BestRoute { get; set; }
     private Graph Graph { get; set; }
+    private Reader Reader { get; set; }
 
-    //private int[] nums { get; set; }
-
-    public Traveller(Params @params, Graph graph)
+    public Traveller(Params @params, Graph graph, Reader reader)
     {
         Params = @params;
         graph.MinimumPheromone = @params.InitialPheromone;
         Graph = graph;
         BestRoute = new List<Edge>();
-        /*nums = new int[4];
-        var g = graph.Edges.Values.OrderBy(x=>x.Length).ToList();
-        nums[0] = g[0].StartVertex;
-        nums[1] = g[0].FinishVertex;
-        nums[2] = g[g.Count - 1].StartVertex;
-        nums[3] = g[g.Count - 1].FinishVertex;*/
+        Reader = reader;
     }
 
     public List<Edge> RunACS()
@@ -50,7 +44,7 @@ public class Traveller
                     GlobalBestAnt = localBestAnt;
                     FinalResult = localBestAnt.Distance;
                     BestRoute = localBestAnt.Path;
-                    var s_sb = new StringBuilder();
+                    /*var s_sb = new StringBuilder();
                     var t_sb = new StringBuilder();
                     var weights = new StringBuilder();
                     s_sb.Append("[");
@@ -69,7 +63,9 @@ public class Traveller
                     swr.WriteLine(s_sb.ToString());
                     swr.WriteLine(t_sb.ToString());
                     swr.WriteLine(weights.ToString());
-                    swr.Close();
+                    swr.Close();*/
+
+                    Reader.WriteIterationPath(localBestAnt, i);
                 }
             }
 

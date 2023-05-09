@@ -5,7 +5,7 @@ using System.Text;
 
 var strokes = new List<Stroke>();
 
-/*strokes.Add(new Stroke(new Point2D(35, 48),
+strokes.Add(new Stroke(new Point2D(35, 48),
 new Point2D(43, 53),
 4));
 strokes.Add(new Stroke(new Point2D(43, 53),
@@ -97,7 +97,7 @@ new Point2D(96, 92),
 4));
 strokes.Add(new Stroke(new Point2D(35, 45),
 new Point2D(35, 44),
-4));*/
+4));
 
 /*strokes.Add(new Stroke(new Point2D(82, 67),
 new Point2D(88, 81),
@@ -231,6 +231,33 @@ edges.Add(new Edge(0, 2, 13));
 edges.Add(new Edge(0, 3, 14));
 edges.Add(new Edge(1, 3, 15));*/
 
+/*strokes.Add(new Stroke(
+    new Point2D(0, 0),
+    new Point2D(5, 1),
+    4.0));
+strokes.Add(new Stroke(
+    new Point2D(1, 3),
+    new Point2D(0, 7),
+    4.0));
+strokes.Add(new Stroke(
+    new Point2D(6, 4),
+    new Point2D(8, 4),
+    4.0));
+strokes.Add(new Stroke(
+    new Point2D(3, 5),
+    new Point2D(2, 8),
+    4.0));
+strokes.Add(new Stroke(
+    new Point2D(4, 2),
+    new Point2D(7, 6),
+    4.0));*/
+
+/*var swr = new StreamWriter("input.txt");
+var sb_start_x = new StringBuilder();
+sb_start_x.Append("[");
+
+var sb_start_y = new StringBuilder();
+sb_start_y.Append("[");
 
 var rnd = new Random();
 for (int i = 0; i < 10; i++)
@@ -241,9 +268,17 @@ for (int i = 0; i < 10; i++)
         new Point2D(
             (uint)rnd.Next(100), (uint)rnd.Next(100)),
         1.0));
+    sb_start_x.Append(strokes[i].Start.X + ", ");
+    sb_start_x.Append(strokes[i].End.X + ", ");
+    sb_start_y.Append(strokes[i].Start.Y + ", ");
+    sb_start_y.Append(strokes[i].End.Y + ", ");
 }
 
-var d = strokes.Count * 2 - 1;
+swr.WriteLine(sb_start_x.ToString());
+swr.WriteLine(sb_start_y.ToString());
+swr.Close();*/
+
+var d = strokes.Count * 2;
 
 var _params = new Params();
 
@@ -251,17 +286,16 @@ var read = new Reader(strokes);
 
 var graph = new Graph(d, read.edges);
 
-//var sb = new StringBuilder();
-
 Console.WriteLine("Начальная длина пути: " + read.CountStartDistance());
 
+//var sb = new StringBuilder();
 //sb.AppendLine("Начальная длина пути: " + read.CountStartDistance());
 
-/*for(int j = 0; j<5; j++)
+for (int j = 0; j<5; j++)
 {
     var sw = new Stopwatch();
     sw.Start();
-    var traveller = new Traveller(_params, graph);
+    var traveller = new Traveller(_params, graph, read);
     traveller.RunACS();
     sw.Stop();
     var res = traveller.BestRoute;
@@ -272,32 +306,16 @@ Console.WriteLine("Начальная длина пути: " + read.CountStartDi
     Console.WriteLine("Итерация: " + j);
     Console.WriteLine("Время: " + sw.Elapsed);
     Console.WriteLine("Расстояние: " + countedDistance);
-    *//*sb.AppendLine("Итерация: " + j);
+    //Console.WriteLine(read.PrintPath(traveller.GlobalBestAnt));
+    Console.WriteLine();
+    /*sb.AppendLine("Итерация: " + j);
     sb.AppendLine("Время: " + sw.Elapsed);
-    sb.AppendLine("Расстояние: " + distance);*//*
+    sb.AppendLine("Расстояние: " + distance);*/
 
     //sb.AppendLine(sw.Elapsed + " " + countedDistance);
-    _params.IterationAmount += 1;
-}*/
+}
 
 //Console.WriteLine(sb.ToString());
-
-var traveller = new Traveller(_params, graph);
-traveller.RunACS();
-var res = traveller.BestRoute;
-//var distance = traveller.FinalResult;
-
-var countedDistance = read.CountStartDistance(res);
-
-//Console.WriteLine("Итерация: " + j);
-//Console.WriteLine("Время: " + sw.Elapsed);
-Console.WriteLine("Расстояние: " + countedDistance);
-/*sb.AppendLine("Итерация: " + j);
-sb.AppendLine("Время: " + sw.Elapsed);
-sb.AppendLine("Расстояние: " + distance);*/
-
-//sb.AppendLine(sw.Elapsed + " " + countedDistance);
-_params.IterationAmount += 1;
 
 /*var swr = new StreamWriter("1.txt");
 swr.WriteLine(sb.ToString());

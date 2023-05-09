@@ -1,5 +1,6 @@
 ﻿using StrokeAntAlgorithm.Graphs;
 using System.Net;
+using System.Text;
 
 namespace StrokeAntAlgorithm.Ants;
 
@@ -65,6 +66,8 @@ public class Ant
         return edge;
     }
 
+    // ищем все инцедентные вершины и присваиваем им вес
+    // согласно уровню феромона и их длине
     private Edge NextEdge()
     {
         List<Edge> edges = new();
@@ -75,7 +78,7 @@ public class Ant
             var edge = Graph.GetEdge(currentNodeId, node);
             if (edge != null)
             {
-                edge.Weight = Weight(edge.Length, edge.Pheromone);
+                edge.Weight = SumWeight(edge.Length, edge.Pheromone);
                 edges.Add(edge);
             }
         }
@@ -83,23 +86,32 @@ public class Ant
         return Search(edges);
     }
 
+    private double SumWeight(double length, double pheromone) =>
+        (Math.Pow(pheromone, Alpha) + 1 / Math.Pow(length, Beta));
+
     private double Weight(double length, double pheromone) =>
-        Math.Pow(pheromone, Alpha) * 1 / Math.Pow(length, Beta);
+        (Math.Pow(pheromone, Alpha) * 1 / Math.Pow(length, Beta));
 
     private Edge Search(List<Edge> edges)
     {
-        double totalSum = edges.Sum(x => x.Weight);
-        var edgeP = edges.Select(w => { w.Weight = (w.Weight / totalSum); return w; }).ToList();
-        double sum = 0;
+        double totalSum = edges.Sum(x => Weight(x.Length, x.Pheromone));
+        var edgeP = edges.Select(w => 
+        { 
+            w.Weight = (w.Weight / totalSum); 
+            return w; 
+        })
+            .ToList();
+
+        /*double sum = 0;
         foreach (var item in edgeP)
         {
             sum += item.Weight;
             item.Weight = sum;
-        }
+        }*/
 
-        double rand = (new Random()).NextDouble();
+        double rand = new Random().NextDouble();
 
-        edgeP = edgeP.OrderBy(x => x.Weight).ToList();
+        edgeP = edgeP.OrderByDescending(x => x.Weight).ToList();
         if (edgeP[0].Weight<rand) return edgeP[0];
 
         return edgeP.First(j => j.Weight >= rand);

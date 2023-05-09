@@ -1,11 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StrokeAntAlgorithm.Ants;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Text;
 
 namespace StrokeAntAlgorithm.Graphs;
 
 public class Reader
 {
     private List<Stroke> strokes;
-    private List<Point2D> points;
+    public List<Point2D> points;
     public List<Edge> edges;
 
     public Reader(List<Stroke> strokes)
@@ -64,5 +67,63 @@ public class Reader
             res += e[i].Length;
         }
         return res;
+    }
+
+    public void WriteIterationPath(Ant ant, int n)
+    {
+        var cmp = new StrokesCompiler(ant.Path, strokes);
+        var str = cmp.ConvertToStrokes();
+
+        var swr = new StreamWriter("iteration_" + n + ".txt");
+        var sb_start_x = new StringBuilder();
+        sb_start_x.Append("[");
+        var sb_start_y = new StringBuilder();
+        sb_start_y.Append("[");
+        for(int i = 0; i<str.Count; i++)
+        {
+            sb_start_x.Append(str[i].Start.X + ", ");
+            sb_start_x.Append(str[i].End.X + ", ");
+            sb_start_y.Append(str[i].Start.Y + ", ");
+            sb_start_y.Append(str[i].End.Y + ", ");
+        }
+
+        swr.WriteLine(sb_start_x.ToString());
+        swr.WriteLine(sb_start_y.ToString());
+        swr.Close();
+    }
+
+    public string PrintPath(Ant ant)
+    {
+        int[] res = new int[ant.Path.Count + 1];
+        string path = "";
+        if (ant.Path[0].StartVertex == ant.Path[1].StartVertex ||
+            ant.Path[0].StartVertex == ant.Path[1].FinishVertex)
+        {
+            res[0] = ant.Path[0].FinishVertex;
+            path += ant.Path[0].FinishVertex + " ";
+        }
+        else
+        {
+            res[0] = ant.Path[0].StartVertex;
+            path += ant.Path[0].StartVertex + " ";
+        }
+        for (int i = 1; i < ant.Path.Count + 1; i++)
+        {
+            res[i] = -1;
+        }
+        for (int i = 0; i < ant.Path.Count; i++)
+        {
+            if (Array.IndexOf(res, ant.Path[i].StartVertex) <= -1)
+            {
+                res[i + 1] = ant.Path[i].StartVertex;
+            path += ant.Path[i].StartVertex + " ";
+            }
+            else if (Array.IndexOf(res, ant.Path[i].FinishVertex) <= -1)
+            {
+                res[i + 1] = ant.Path[i].FinishVertex;
+                path += ant.Path[i].FinishVertex + " ";
+            }
+        }
+        return path;
     }
 }

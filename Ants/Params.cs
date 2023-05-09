@@ -24,8 +24,8 @@ public class Params
         Alpha = 1;
         Beta = 2;
         EvaporationRate = 0.1;
-        AntAmount = 20;
-        IterationAmount = 100;
+        AntAmount = 15;
+        IterationAmount = 30;
         InitialPheromone = 0.01;
     }
 }
