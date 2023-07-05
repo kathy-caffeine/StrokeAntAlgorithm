@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="StrokeAntAlgorithm.Graphs.Stroke">
+    <Position X="9.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Graphs\Stroke.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StrokeAntAlgorithm.Graphs.Graph">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAACAAIBAAAAgAABCABAAAAAAAA=</HashCode>
+      <FileName>Graphs\Graph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StrokeAntAlgorithm.Graphs.Edge">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAABAACAAAAIACAAAAAAAAAA=</HashCode>
+      <FileName>Graphs\Edge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StrokeAntAlgorithm.Ants.Traveller">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAIAABAAAAAAAAAAAAAAIAAAAAgAABQAABAABEA=</HashCode>
+      <FileName>Ants\Traveller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StrokeAntAlgorithm.Ants.Params">
+    <Position X="2.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAIAAAAAAAAQAABABAAAAAgAAAAA=</HashCode>
+      <FileName>Ants\Params.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StrokeAntAlgorithm.Ants.Ant">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAQIAAAAAAIAAACQAABhAIAgCAEAgAAE=</HashCode>
+      <FileName>Ants\Ant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="StrokeAntAlgorithm.Graphs.Point2D">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAgAAAAAAAAAAAACAAAAAAYAA=</HashCode>
+      <FileName>Graphs\Point2D.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

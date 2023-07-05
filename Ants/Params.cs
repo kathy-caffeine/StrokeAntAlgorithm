@@ -9,23 +9,13 @@ public class Params
     public int AntAmount { get; set; }
     public int IterationAmount { get; set; }
 
-    public Params(int Alpha, int Beta, double EvaporationRate, double initialPheromone, int AntCount, int Iterations)
-    {
-        this.Alpha = Alpha;
-        this.Beta = Beta;
-        this.EvaporationRate = EvaporationRate;
-        this.InitialPheromone = initialPheromone;
-        this.AntAmount = AntCount;
-        this.IterationAmount = Iterations;
-    }
-
     public Params()
     {
-        Alpha = 1;
-        Beta = 2;
+        Alpha = 3;
+        Beta = 1;
         EvaporationRate = 0.1;
-        AntAmount = 15;
-        IterationAmount = 30;
+        AntAmount = 100;
+        IterationAmount = 100;
         InitialPheromone = 0.01;
     }
 }

@@ -49,26 +49,6 @@ public class Reader
         return d;
     }
 
-    public double CountStartDistance()
-    {
-        var res = 0.0;
-        for(int i = 1; i< points.Count; i++)
-        {
-            res += CountDistance(points[i], points[i - 1]);
-        }
-        return res;
-    }
-
-    public double CountStartDistance(List<Edge> e)
-    {
-        var res = 0.0;
-        for (int i = 1; i < e.Count; i++)
-        {
-            res += e[i].Length;
-        }
-        return res;
-    }
-
     public void WriteIterationPath(Ant ant, int n)
     {
         var cmp = new StrokesCompiler(ant.Path, strokes);
@@ -80,6 +60,26 @@ public class Reader
         var sb_start_y = new StringBuilder();
         sb_start_y.Append("[");
         for(int i = 0; i<str.Count; i++)
+        {
+            sb_start_x.Append(str[i].Start.X + ", ");
+            sb_start_x.Append(str[i].End.X + ", ");
+            sb_start_y.Append(str[i].Start.Y + ", ");
+            sb_start_y.Append(str[i].End.Y + ", ");
+        }
+
+        swr.WriteLine(sb_start_x.ToString());
+        swr.WriteLine(sb_start_y.ToString());
+        swr.Close();
+    }
+
+    public void WriteIterationPath(List<Stroke> str, int n)
+    {
+        var swr = new StreamWriter("iteration_" + n + ".txt");
+        var sb_start_x = new StringBuilder();
+        sb_start_x.Append("[");
+        var sb_start_y = new StringBuilder();
+        sb_start_y.Append("[");
+        for (int i = 0; i < str.Count; i++)
         {
             sb_start_x.Append(str[i].Start.X + ", ");
             sb_start_x.Append(str[i].End.X + ", ");

@@ -78,7 +78,7 @@ public class Ant
             var edge = Graph.GetEdge(currentNodeId, node);
             if (edge != null)
             {
-                edge.Weight = SumWeight(edge.Length, edge.Pheromone);
+                edge.Weight = Weight(edge.Length, edge.Pheromone);
                 edges.Add(edge);
             }
         }
@@ -86,15 +86,12 @@ public class Ant
         return Search(edges);
     }
 
-    private double SumWeight(double length, double pheromone) =>
-        (Math.Pow(pheromone, Alpha) + 1 / Math.Pow(length, Beta));
-
     private double Weight(double length, double pheromone) =>
-        (Math.Pow(pheromone, Alpha) * 1 / Math.Pow(length, Beta));
+        (Math.Pow(pheromone, Alpha) / Math.Pow(length, Beta));
 
     private Edge Search(List<Edge> edges)
     {
-        double totalSum = edges.Sum(x => Weight(x.Length, x.Pheromone));
+        double totalSum = edges.Sum(x => x.Weight);
         var edgeP = edges.Select(w => 
         { 
             w.Weight = (w.Weight / totalSum); 
@@ -102,19 +99,19 @@ public class Ant
         })
             .ToList();
 
-        /*double sum = 0;
-        foreach (var item in edgeP)
+        var rand = new Random().NextDouble();
+        var sum = 0.0; var edge_index = -1;
+        for(int i = 0; i<edgeP.Count; i++)
         {
-            sum += item.Weight;
-            item.Weight = sum;
-        }*/
+            sum+= edgeP[i].Weight;
+            if (sum >= rand)
+            {
+                edge_index = i;
+                break;
+            }
+        }
 
-        double rand = new Random().NextDouble();
-
-        edgeP = edgeP.OrderByDescending(x => x.Weight).ToList();
-        if (edgeP[0].Weight<rand) return edgeP[0];
-
-        return edgeP.First(j => j.Weight >= rand);
+        return edgeP[edge_index];
     }
 
     private int DrawStroke(int startId)
